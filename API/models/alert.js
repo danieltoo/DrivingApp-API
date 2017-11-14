@@ -12,42 +12,42 @@ var AlertSchema = new Schema({
     type: String
   },
   category:{
-    type: Schema.Types.Mixed,
+    type: String,
     required: true,
   },
   subCategory:{
-    type: Schema.Types.Mixed,
+    type: String,
     required: true
   },
   location:{
-    type: Schema.Types.Mixed,
+    type: String,
     required: true
   },
   address:{
-    type: Schema.Types.Mixed
+    type: String
   },
   dateObserved:{
-    type: Schema.Types.Mixed,
+    type: String,
     required: true
   },
   validFrom:{
-    type: Schema.Types.Mixed
+    type: String
   },
   validTo:{
-    type: Schema.Types.Mixed
+    type: String
   },
   description:{
-    type: Schema.Types.Mixed
+    type: String
   },
   alertSource:{
-    type: Schema.Types.Mixed,
+    type: String,
     required: true
   },
   data:{
-    type: Schema.Types.Mixed
+    type: String
   },
   severity:{
-    type: Schema.Types.Mixed,
+    type: String,
     required: true
   }
 },
