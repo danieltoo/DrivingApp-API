@@ -5,26 +5,37 @@ cb.config('http://207.249.127.149',1026,'v2')
 var PointOnCampus = require('../API/functions/PointOnCampus')
 
 exports.notify = async function(req, res, next) {
-	var new_alert = new Alert(req.body['data']);
-
+	//var new_alert = new Alert(req.body['data']);
+	let alert = req.body['data'][0]
 	/*Detectar campus donde se genera la alerta*/
 
-	let isOn
-	Campus.find({}, async function(err, campus) { //saco la lista de campus
+	let isOnCampus = false
+	let campusID = ""
+
+	await Campus.find({}, async function(err, campus) { //saco la lista de campus
 		if (err)
 	      res.send(err);
 	  	if (campus != null){ 
-	  		
+	  		campus.map(( camp ) => {
+
+	  			if(PointOnCampus(JSON.parse("["+alert.location+"]"),camp.location)){
+	  				isOnCampus = true
+	  				campusID = camp["_id"]
+	  			}
+
+	  		})
 	  	}  	
 	});
 
+	console.log(isOnCampus , campusID)
+
 	/*Determinar lista de dispositivos en el campus*/
 	/*Almacenar la alerta*/
-	new_alert.save(function(err, alert) {
+	/*new_alert.save(function(err, alert) {
 	  if (err)
-		res.send(err);
+		res.status(500).send(err);
 	  res.json(alert);
-	});
+	});*/
 
 	/*Enviar sockets por el canal del campus*/
  	var socketio = req.app.get('socketio');
