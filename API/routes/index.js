@@ -13,7 +13,8 @@
   var campusController         = require('../controllers/campus');
   var buildingController       = require('../controllers/building');
   var streetParkingController  = require('../controllers/streetparking');
-  var alertController             = require('../controllers/alert');
+  var alertController          = require('../controllers/alert');
+  var deviceController         = require('../controllers/deviceNotification');
 
   //Import Services to Mobile App
   var alertsService = require('../services/alertsService')
@@ -145,6 +146,17 @@
   app.route('/alerts/:alertId')
     .put(alertController.update_alert)
     .delete(alertController.delete_alert); 
+
+   //Device Notification Routes
+
+  app.route('/deviceNotification')
+    .get(deviceController.list_all_devices)
+    .post(deviceController.create_device);
+
+  app.route('/deviceNotification/:id')
+    .get(deviceController.read_device)
+    .put(deviceController.update_device);
+
 
   //Return the Alerts on a Campus
   app.route('/alerts/:campus')

@@ -8,7 +8,6 @@ exports.notify = async function(req, res, next) {
 	//var new_alert = new Alert(req.body['data']);
 	let alert = req.body['data'][0]
 	/*Detectar campus donde se genera la alerta*/
-
 	let isOnCampus = false
 	let campusID = ""
 
@@ -17,12 +16,10 @@ exports.notify = async function(req, res, next) {
 	      res.send(err);
 	  	if (campus != null){ 
 	  		campus.map(( camp ) => {
-
 	  			if(PointOnCampus(JSON.parse("["+alert.location+"]"),camp.location)){
 	  				isOnCampus = true
 	  				campusID = camp["_id"]
 	  			}
-
 	  		})
 	  	}  	
 	});
@@ -30,6 +27,7 @@ exports.notify = async function(req, res, next) {
 	console.log(isOnCampus , campusID)
 
 	/*Determinar lista de dispositivos en el campus*/
+	
 	/*Almacenar la alerta*/
 	/*new_alert.save(function(err, alert) {
 	  if (err)
