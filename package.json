@@ -1,0 +1,39 @@
+{
+  "name": "ha-da server",
+  "version": "0.1.0",
+  "description": "Api HADA",
+  "main": "server.js",
+  "scripts": {
+    "test": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "fiware",
+    "driving",
+    "monitor",
+    "security",
+    "guard",
+    "app",
+    "orion",
+    "context",
+    "broker"
+  ],
+  "author": "Daniel Torres",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.0",
+    "morgan": "^1.9.0",
+    "node-fetch": "^1.7.3",
+    "ocb-sender": "^1.5.4",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
