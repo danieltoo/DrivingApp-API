@@ -1,8 +1,8 @@
 var Alert = require('../API/models/alert');
-var Campus = require('../models/campus');
+var Campus = require('../API/models/campus');
 var cb = require('ocb-sender')
 cb.config('http://207.249.127.149',1026,'v2')
-var PointOnCampus = require('../functions/PointOnCampus')
+var PointOnCampus = require('../API/functions/PointOnCampus')
 
 exports.notify = async function(req, res, next) {
 	var new_alert = new Alert(req.body['data']);

@@ -1,7 +1,7 @@
 {
-  "name": "ha-da server",
+  "name": "hadaapi",
   "version": "0.1.0",
-  "description": "Api HADA",
+  "description": "api hada",
   "main": "server.js",
   "scripts": {
     "test": "nodemon server.js",
