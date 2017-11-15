@@ -12,11 +12,12 @@ exports.list_all_devices = function(req, res, next) {
 
 exports.create_device = function(req, res, next) {
   var new_device = new Device(req.body);
-  new_device.save(function(err, device) {
+  console.log(req.body)
+  /*new_device.save(function(err, device) {
     if (err)
       res.send(err);
     res.json(device);
-  });
+  });*/
 };
 
 exports.read_device = function(req, res, next) {
