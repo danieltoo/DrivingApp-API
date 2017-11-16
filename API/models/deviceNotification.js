@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
-var deviceSchema = new Schema({
+var deviceNotificationSchema = new Schema({
     fcmToken:{
         type: String,
         unique: true,
@@ -15,9 +15,9 @@ var deviceSchema = new Schema({
     }
 },
 {
-  collection: 'deviceModel'
+  collection: 'deviceNotificationModel'
 });
 
 
   
-module.exports = mongoose.model('Device', deviceSchema);
+module.exports = mongoose.model('DeviceNotification', deviceNotificationSchema);

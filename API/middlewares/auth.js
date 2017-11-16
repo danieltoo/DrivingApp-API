@@ -1,4 +1,4 @@
-var config = require('../../DatabaseConfig/config');
+var config = require('../../config/config');
 var jwt = require('jsonwebtoken');
 
 module.exports = {
