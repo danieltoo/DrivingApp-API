@@ -8,7 +8,7 @@ var socketio    = require('socket.io');
 // Routes for our APIs 
 var routes      = require('./API/routes/index'); //importing the routes
 var mongoose    = require('mongoose');
-var config      = require('./DatabaseConfig/config'); // get our config file
+var config      = require('./config'); // get our config file
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mdauth      = require('./API/middlewares/auth'); 
