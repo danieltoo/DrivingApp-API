@@ -7,6 +7,7 @@ var deviceTokens = require('../API/models/deviceNotification')
 var PointOnCampus = require('../API/functions/PointOnCampus')
 var serviceAccount = require("../config/driving-monitoring-firebase-adminsdk-tadcu-59e9660808.json");
 var cb = require('ocb-sender')
+var ngsi = require('ngsi-parser')
 cb.config('http://207.249.127.149',1026,'v2')
 
 admin.initializeApp({
@@ -14,7 +15,7 @@ admin.initializeApp({
   databaseURL: "https://driving-monitoring.firebaseio.com"
 });
 
-exports.notify = async function(req, res, next) {
+exports.notify = async (req, res, next) => {
 	//var new_alert = new Alert(req.body['data']);
 	let alert = req.body['data'][0]
 
@@ -23,7 +24,7 @@ exports.notify = async function(req, res, next) {
 	let campusID = ""
 	let campLocation = []
 
-	await Campus.find({}, async function(err, campus) { //saco la lista de campus
+	await Campus.find({}, async (err, campus) => { //saco la lista de campus
 		if (err)
 	      res.send(err);
 	  	if (campus != null){ 
@@ -45,9 +46,19 @@ exports.notify = async function(req, res, next) {
 		/*Determinar lista de dispositivos en el campus*/
 		let devicesList = []
 		if (isOnCampus){
-			await cb.queryEntitiesOnArea(campLocation ,".*","Device",true)
-			.then((result) =>{
-			    result.map((device) =>{ 
+
+			let query = ngsi.createQuery({
+			  id: ".*",
+			  type: "Device",
+			  georel : "coveredBy",
+			  geometry:"polygon",
+			  coords : campLocation,
+			  options: "keyValues"
+			})
+
+			await cb.getWithQuery(query)
+			.then(async (result) => {
+			    await result.map((device) =>{ 
 			    	devicesList.push(device.id)
 			    })
 			})
@@ -60,9 +71,9 @@ exports.notify = async function(req, res, next) {
 
 		var TokensList = []
 
-		await deviceTokens.find({}, (err, deviceNot) => {
-			devicesList.map((dev) => {
-				deviceNot.map((devNot) => {
+		await deviceTokens.find({}, async (err, deviceNot) => {
+			await devicesList.map( async (dev) => {
+				await deviceNot.map((devNot) => {
 					if (dev === devNot.refDevice) 
 						TokensList.push(devNot.fcmToken)
 				})
@@ -79,8 +90,6 @@ exports.notify = async function(req, res, next) {
 		    body: alert.description
 		  }
 		};
-
-
 		await admin.messaging().sendToDevice(TokensList, notification)
 		  .then(function(response) {
 		    console.log("Successfully sent message:", response);
