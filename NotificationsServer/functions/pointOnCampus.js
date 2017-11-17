@@ -1,6 +1,6 @@
 
 
-module.exports = function PointOnCampus( Point, Polygon ) {
+module.exports = function pointOnCampus( Point, Polygon ) {
 	x = Point[0]
 	y = Point[1]
 
