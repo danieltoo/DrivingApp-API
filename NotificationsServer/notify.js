@@ -17,87 +17,52 @@ admin.initializeApp({
 
 exports.notify = async (req, res, next) => {
 	//var new_alert = new Alert(req.body['data']);
+
 	let alert = req.body['data'][0]
 
 	/*Detectar campus donde se genera la alerta*/
-	let isOnCampus = false
-	let campusID = ""
-	let campLocation = []
 
-	await Campus.find({}, async (err, campus) => { //saco la lista de campus
-		if (err)
-	      res.send(err);
-	  	if (campus != null){ 
-	  		await campus.map(( camp ) => {
-	  			if(PointOnCampus(JSON.parse("["+alert.location+"]"),camp.location)){
-	  				isOnCampus = true
-	  				campusID = camp["_id"]
-	  				campLocation = camp["location"]
-	  			}
-	  		})
-	  	}  	
-	});
+	let campus = await determinateCampus(alert.location)
 
-
-	console.log(isOnCampus , campusID)
-
-	if (isOnCampus) {
+	if (campus !== {}) {
 
 		/*Determinar lista de dispositivos en el campus*/
-		let devicesList = []
-		if (isOnCampus){
+		let devicesList = await getDevicesOnCampus(campus.location)
+		
 
-			let query = ngsi.createQuery({
-			  id: ".*",
-			  type: "Device",
-			  georel : "coveredBy",
-			  geometry:"polygon",
-			  coords : campLocation,
-			  options: "keyValues"
-			})
+		if (devicesList.length > 0 ) {
 
-			await cb.getWithQuery(query)
-			.then(async (result) => {
-			    await result.map((device) =>{ 
-			    	devicesList.push(device.id)
-			    })
-			})
+
+			console.log("Lista de dispositivos ")
+			console.log(devicesList)
+
+			/*Determinar lista tokens de los dispositivos para enviar a Firebase*/
+
+			let TokensList = await getDevicesTokens(devicesList)
+
+			if ( TokensList.length > 0 ){
+
+				console.log("Lista de tokens de dispositivos")
+				console.log(TokensList)
+
+
+				/*Enviar la lista de tokens a firebase */
+				let notification = {
+				  notification: {
+				    title: alert.category,
+				    body: alert.description
+				  }
+				};
+
+				await sendNotification(TokensList , notification)
+				
+
+			}else {
+				console.log("No se encontraron tokens :(")
+			}
+		}else {
+			console.log("No se encuentran dispositivos en el campus")
 		}
-
-		console.log("Lista de dispositivos ")
-		console.log(devicesList)
-
-		/*Determinar lista tokens de los dispositivos para enviar a Firebase*/
-
-		var TokensList = []
-
-		await deviceTokens.find({}, async (err, deviceNot) => {
-			await devicesList.map( async (dev) => {
-				await deviceNot.map((devNot) => {
-					if (dev === devNot.refDevice) 
-						TokensList.push(devNot.fcmToken)
-				})
-			})
-		})
-
-		console.log("Lista de tokens de dispositivos")
-		console.log(TokensList)
-
-		/*Enviar la lista de tokens a firebase */
-		let notification = {
-		  notification: {
-		    title: alert.category,
-		    body: alert.description
-		  }
-		};
-		await admin.messaging().sendToDevice(TokensList, notification)
-		  .then(function(response) {
-		    console.log("Successfully sent message:", response);
-		  })
-		  .catch(function(error) {
-		    console.log("Error sending message:", error);
-		  });
-		  console.log(notification)
 	}else {
 		console.log("Se encuentra fuera del area")
 	}
@@ -120,3 +85,83 @@ exports.notify = async (req, res, next) => {
  	res.status(200).send("OK")
 };
 
+
+
+async function determinateCampus( location ){
+
+	let isOnCampus = false
+	let campusID = ""
+	let campLocation = []
+
+	let result = {} 
+
+	await Campus.find({}, async (err, campus) => { //saco la lista de campus
+		if (err)
+	      error = err
+	  	if (campus != null){
+
+	  		await campus.map(( camp ) => {
+	  			if(PointOnCampus(JSON.parse("["+location+"]"),camp.location)){
+	  				result["id"] = camp["_id"]
+	  				result["location"] = camp["location"]
+	  			}
+	  		})
+
+
+	  	}  	
+	})
+
+	return result 
+}
+
+async function getDevicesOnCampus(location) {
+	let devicesList = []
+
+		let query = ngsi.createQuery({
+		  id: ".*",
+		  type: "Device",
+		  georel : "coveredBy",
+		  geometry:"polygon",
+		  coords : location,
+		  options: "keyValues"
+		})
+
+		await cb.getWithQuery(query)
+		.then(async (result) => {
+		    await result.map((device) =>{ 
+		    	devicesList.push(device.id)
+		    })
+		})
+	return devicesList
+}
+
+async function getDevicesTokens(devicesList) {
+	var TokensList = []
+
+	await deviceTokens.find({}, async (err, deviceNot) => {
+		await devicesList.map( async (dev) => {
+			await deviceNot.map((devNot) => {
+				if (dev === devNot.refDevice) 
+					TokensList.push(devNot.fcmToken)
+			})
+		})
+	})
+
+	return TokensList
+}
+
+async function sendNotification(TokensList , notification) {
+
+	await admin.messaging().sendToDevice(TokensList, notification)
+	  .then(function(response) {
+	    console.log("Successfully sent message:", response);
+	  })
+	  .catch(function(error) {
+	    console.log("Error sending message:", error);
+	  });
+
+
+	return
+	 
+
+}
