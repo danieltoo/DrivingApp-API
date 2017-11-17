@@ -1,5 +1,5 @@
 //mobileLogin.js
-exports.login = async  (req,res) => { 
+module.exports = function login (req,res) { 
   if(req.body.email === "mi@email.com" && req.body.password === 'pass'){
     res.status(200).json({token : "Mi token", idUser:"13680224"})
   }else {

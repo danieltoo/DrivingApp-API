@@ -5,12 +5,13 @@ var getDevicesOnCampus = require('./functions/getDevicesOnCampus')
 var getDevicesTokens = require('./functions/getDevicesTokens')
 var sendNotification = require('./functions/sendNotification')
 
-exports.notify = async (req, res, next) => {
+module.exports = async function notify(req, res, next) {
 	let socketio = req.app.get('socketio');
 	let alert = req.body['data'][0]
 	let campus = await determinateCampus(alert.location)//Detectar campus donde se genera la alerta
 	if (campus !== {}) {
-		socketio.sockets.emit(campus.id, alert); //Envia la nueva alerta a los dispositivos abiertos
+		socket.emit('allalerts', alert) // Envía alerta a Driving Monitor Web APP
+		socketio.sockets.emit(campus.id, alert); //Envía la nueva alerta a los dispositivos con la app abierta y dentro del campus
 		var new_alert = new Alert(alert);
 		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
 			if (err)
