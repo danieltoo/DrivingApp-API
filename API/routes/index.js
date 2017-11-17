@@ -25,6 +25,7 @@
     .get((req, res, next) => {
       res.json({ message: 'Welcome to API RESTFul Web Application' })
     });
+    
   //AUTHENTICATION ROUTES
   /* The authentication routes will be here*/
 

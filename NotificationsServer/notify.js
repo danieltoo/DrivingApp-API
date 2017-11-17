@@ -10,7 +10,7 @@ module.exports = async function notify(req, res, next) {
 	let alert = req.body['data'][0]
 	let campus = await determinateCampus(alert.location)//Detectar campus donde se genera la alerta
 	if (campus !== {}) {
-		socket.emit('allalerts', alert) // Envía alerta a Driving Monitor Web APP
+		socketio.emit('allalerts', alert) // Envía alerta a Driving Monitor Web APP
 		socketio.sockets.emit(campus.id, alert); //Envía la nueva alerta a los dispositivos con la app abierta y dentro del campus
 		var new_alert = new Alert(alert);
 		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
@@ -36,15 +36,7 @@ module.exports = async function notify(req, res, next) {
 		}
 	}else {
 		console.log("Se encuentra fuera del area")
-<<<<<<< HEAD
-	}	
-	/*Enviar sockets por el canal del campus*/
- 	var socketio = req.app.get('socketio');
- 	socketio.sockets.emit('campus', req.body);
-
-=======
 	}
->>>>>>> ed8c8b2347d35e5b859cc919d71b2a5ffa08dd8a
  	res.status(200).send("OK")
 };
 

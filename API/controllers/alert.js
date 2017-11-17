@@ -11,7 +11,7 @@ exports.list_all_alerts = function(req, res, next) {
 };
 
 exports.create_alert = function(req, res, next) {
-  var new_alert = new Alert(req.body);
+  var new_alert = new Alert(req.body['data'][0]);
   new_alert.save(function(err, alert) {
     if (err)
       res.status(500).send(err);
