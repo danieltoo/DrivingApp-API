@@ -18,7 +18,15 @@ admin.initializeApp({
 exports.notify = async (req, res, next) => {
 	//var new_alert = new Alert(req.body['data']);
 
-	let alert = req.body['data'][0]
+	let alert = req.body;
+
+	/*Almacenar la alerta*/
+	var new_alert = new Alert(alert);
+	new_alert.save(function(err, alert) {
+	  if (err)
+			res.status(500).send(err);
+	  res.json(alert);
+	});
 
 	/*Detectar campus donde se genera la alerta*/
 
@@ -65,19 +73,7 @@ exports.notify = async (req, res, next) => {
 		}
 	}else {
 		console.log("Se encuentra fuera del area")
-	}
-
-
-	
-
-	
-	/*Almacenar la alerta*/
-	/*new_alert.save(function(err, alert) {
-	  if (err)
-		res.status(500).send(err);
-	  res.json(alert);
-	});*/
-
+	}	
 	/*Enviar sockets por el canal del campus*/
  	var socketio = req.app.get('socketio');
  	socketio.sockets.emit('campus', req.body);

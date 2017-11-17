@@ -11,10 +11,10 @@ exports.list_all_alerts = function(req, res, next) {
 };
 
 exports.create_alert = function(req, res, next) {
-  var new_alert = new Alert(req.body['data']);
+  var new_alert = new Alert(req.body);
   new_alert.save(function(err, alert) {
     if (err)
-      res.send(err);
+      res.status(500).send(err);
     res.json(alert);
   });
 };
