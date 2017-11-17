@@ -14,6 +14,9 @@ var morgan      = require('morgan');
 var mdauth      = require('./API/middlewares/auth'); 
 var jwt         = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
+var login = require('./API/routes/login')
+var notify = require('./NotificationsServer/notify')
+
 // Database configuration
 mongoose.Promise = global.Promise;
 //Mongoose's default connection logic in versions >= 4.11.0. 
@@ -51,10 +54,10 @@ app.use(cors())
 app.use('/api', routes)
 
 app.route('/notify')
-	.post(require('./NotificationsServer/notify.js').notify)
+	.post(notify)
 
 app.route("/mobile/login")
-    .post(require('./NotificationsServer/mobileLogin.js').login);
+    .post(login);
 
 //Middleware to catch and handle a 404 error
 app.use(function(req, res) {
