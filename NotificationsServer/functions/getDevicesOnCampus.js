@@ -2,10 +2,6 @@
 var cb = require('ocb-sender')
 var ngsi = require('ngsi-parser')
 
-cb.config('http://207.249.127.149',1026,'v2')
-.then((result) => console.log(result))
-.catch((err) => console.log(err))
-
 module.exports = async function getDevicesOnCampus(location) {
 	let devicesList = []
 	if (location !== undefined){

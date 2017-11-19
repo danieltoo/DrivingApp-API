@@ -17,6 +17,9 @@ var jwt         = require('jsonwebtoken'); // used to create, sign, and verify t
 var login = require('./API/routes/login')
 var notify = require('./NotificationsServer/notify')
 
+var cb = require('ocb-sender')
+cb.config(`http://${config.context}`,1026,'v2')
+
 // Database configuration
 mongoose.Promise = global.Promise;
 //Mongoose's default connection logic in versions >= 4.11.0. 
