@@ -1,0 +1,8 @@
+ mongo:
+   image: mongo:3.2
+ webservice:
+   image: todaniels/drivingmonitorapi
+   links:
+     - mongo
+   ports:
+     - "4000:4000"
