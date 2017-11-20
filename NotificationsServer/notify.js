@@ -30,11 +30,11 @@ module.exports = async function notify(req, res, next) {
 		}else {
 			console.log("No se encuentran dispositivos en el campus")
 		}
-		/*var new_alert = new Alert(alert);
+		var new_alert = new Alert(alert);
 		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
 			if (err)
 				console.log(err) 
-		})*/
+		})
 	}else {
 		console.log("Se encuentra fuera del area")
 	}

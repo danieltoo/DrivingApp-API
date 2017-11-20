@@ -22,14 +22,14 @@ exports.create_device = function(req, res, next) {
 
 exports.read_device = function(req, res, next) {
   DeviceNotification.findOne({ '_id': req.params.id }, function(err, device) {
-    if (err)
+    if (err) 
       res.send(err);
     res.json(device);
   });
 };
 
 exports.update_device = function(req, res, next) {
-  DeviceNotification.findOneAndUpdate({ '_id': req.params.id}, req.body, {new: true}, function(err, device) {
+  DeviceNotification.findOneAndUpdate({ 'refDevice': req.params.id}, req.body, {new: true}, function(err, device) {
     if (err)
       res.send(err);
     res.json(device);

@@ -11,6 +11,7 @@ exports.list_all_usersContacts= function(req, res, next) {
 };
 
 exports.create_userContact = function(req, res, next) {
+  console.log(req.body)
   var new_userContact = new UserContact(req.body);
   new_userContact.save(function(err, userContact) {
     if (err)
@@ -20,7 +21,7 @@ exports.create_userContact = function(req, res, next) {
 };
 
 exports.read_userContact = function(req, res, next) {
-  UserContact.findOne({ 'idUser': req.params.userContactId }, function(err, userContact) {
+  UserContact.findOne({ 'idContact': req.params.userContactId }, function(err, userContact) {
     if (err)
       res.send(err);
     res.json(userContact);
@@ -28,7 +29,7 @@ exports.read_userContact = function(req, res, next) {
 };
 
 exports.update_userContact = function(req, res, next) {
-  UserContact.findOneAndUpdate({ 'idUser': req.params.userContactId}, req.body, {new: true}, function(err, userContact) {
+  UserContact.findOneAndUpdate({ 'idContact': req.params.userContactId}, req.body, {new: true}, function(err, userContact) {
     if (err)
       res.send(err);
     res.json(userContact);
