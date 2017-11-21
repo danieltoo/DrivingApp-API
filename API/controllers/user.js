@@ -11,7 +11,6 @@ exports.list_all_users= function(req, res, next) {
 };
 
 exports.create_user = function(req, res, next) {
-  console.log(req.body)
   var new_user = new User(req.body);
   new_user.save(function(err, user) {
     if (err)

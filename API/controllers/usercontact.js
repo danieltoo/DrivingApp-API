@@ -11,7 +11,6 @@ exports.list_all_usersContacts= function(req, res, next) {
 };
 
 exports.create_userContact = function(req, res, next) {
-  console.log(req.body)
   var new_userContact = new UserContact(req.body);
   new_userContact.save(function(err, userContact) {
     if (err)
