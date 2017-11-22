@@ -17,8 +17,11 @@
   var deviceController         = require('../controllers/deviceNotification');
 
   //Import Services to Mobile App
-  var alertsService = require('../services/alertsService')
-  var devicesService = require('../services/devicesService');
+  var alertsCampusService = require('../services/alertsCampusService');
+  var alertsZoneService = require('../services/alertsZoneService')
+  var devicesCampusService = require('../services/devicesCampusService');
+  var devicesZoneService = require('../services/devicesZoneService');
+  var queryService = require('../services/queryService');
 
   // Test route to make sure everything is working (accessed at GET http://localhost:4000/api)
   app.route('/')
@@ -47,7 +50,6 @@
   app.route('/userContact/:userContactId')
     .get(userContactController.read_userContact)
     .put(userContactController.update_userContact)
-  
   
   //ADMINISTRATOR ROUTES
   app.route('/administrator')
@@ -105,6 +107,9 @@
     .put(zoneController.update_zone)
     .delete(zoneController.delete_zone);
 
+  app.route('/zonesCampus/:idCampus')
+    .get(zoneController.list_all_zonesOfCampus)
+
   //CAMPUS ROUTES
 
   app.route('/campus')
@@ -138,7 +143,7 @@
     .put(streetParkingController.update_streetparking)
     .delete(streetParkingController.delete_streetparking); 
 
-  //STREET PARKING ROUTES
+  //ALERTS GENERIC ROUTES
 
   app.route('/alerts')
     .get(alertController.list_all_alerts)
@@ -158,14 +163,29 @@
     .get(deviceController.read_device)
     .put(deviceController.update_device);
 
+  // ALERTS ROUTES
 
   //Return the Alerts on a Campus
-  app.route('/alerts/:campus')
-    .get(alertsService.alertsCampus)
+  app.route('/alertsCampus/:campus')
+    .get(alertsCampusService.alertsCampus)
   
-  //Return the Devices on a Campus
-  app.route('/devices/:campus')
-    .get(devicesService.devicesCampus)
+  //Return the Alerts on a Zone
+  app.route('/alertsZone/:zone')
+    .get(alertsZoneService.alertsZone)
 
+  //DEVICES ROUTES
+
+  //Return the Devices on a Campus
+  app.route('/devicesCampus/:campus')
+    .get(devicesCampusService.devicesCampus)
+      
+  //Return the Devices on a Zone
+  app.route('/devicesZone/:zone')
+    .get(devicesZoneService.devicesZone)
+
+  //QUERY ROUTES
+  //Query Device owner in Area
+  app.route('/query')
+    .post(queryService.queryInArea);
 
   module.exports = app;
