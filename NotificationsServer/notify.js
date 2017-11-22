@@ -8,16 +8,11 @@ var sendNotification = require('./functions/sendNotification')
 module.exports = async function notify(req, res, next) {
 	let socketio = req.app.get('socketio');
 	let alert = req.body['data'][0]
-	console.log(alert)
+	//console.log(alert)
 	let campus = await determinateCampus(alert.location)//Detectar campus donde se genera la alerta
 	if (campus !== {}) {
 		socketio.sockets.emit('allalerts', alert) // Envía alerta a Driving Monitor Web APP
 		socketio.sockets.emit(campus.id, alert); //Envía la nueva alerta a los dispositivos con la app abierta y dentro del campus
-		var new_alert = new Alert(alert);
-		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
-			if (err)
-				console.log(err) 
-		})
 		let devicesList = await getDevicesOnCampus(campus.location) //Determinar lista de dispositivos en el campus
 		if (devicesList.length > 0 ) {
 			let tokensList = await getDevicesTokens(devicesList) //Determinar lista tokens de los dispositivos para enviar a Firebase
@@ -35,6 +30,11 @@ module.exports = async function notify(req, res, next) {
 		}else {
 			console.log("No se encuentran dispositivos en el campus")
 		}
+		var new_alert = new Alert(alert);
+		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
+			if (err)
+				console.log(err) 
+		})
 	}else {
 		console.log("Se encuentra fuera del area")
 	}
