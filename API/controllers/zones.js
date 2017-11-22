@@ -10,6 +10,14 @@ exports.list_all_zones= function(req, res, next) {
   });
 };
 
+exports.list_all_zonesOfCampus= function(req, res, next) {
+  Zone.find({'refCampus': req.params.idCampus}, function(err, zones) {
+    if (err)
+      res.send(err);
+    res.json(zones);
+  });
+};
+
 exports.create_zone = function(req, res, next) {
   var new_zone = new Zone(req.body);
   new_zone.save(function(err, zone) {
