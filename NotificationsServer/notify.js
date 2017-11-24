@@ -14,7 +14,7 @@ module.exports = async function notify(req, res, next) {
 		socketio.sockets.emit('allalerts', alert) // Envía alerta a Driving Monitor Web APP
 		socketio.sockets.emit(campus.id, alert); //Envía la nueva alerta a los dispositivos con la app abierta y dentro del campus
 		let devicesList = await getDevicesOnCampus(campus.location) //Determinar lista de dispositivos en el campus
-		console.log("Guardando en mongo")
+		console.log("Guardando con mongo")
 		console.log(alert)
 		var new_alert = new Alert(alert);
 		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
