@@ -7,6 +7,7 @@ admin.initializeApp({
 });
 
 module.exports = async function sendNotification(tokensList , notification) {
+	console.log("enviando notificación")
 
 	await admin.messaging().sendToDevice(tokensList, notification)
 	  .then(function(response) {
@@ -15,6 +16,6 @@ module.exports = async function sendNotification(tokensList , notification) {
 	  .catch(function(error) {
 	    console.log("Error sending message:", error);
 	  });
-
+	  console.log("enviando notificación")
 	return
 }

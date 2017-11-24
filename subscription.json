@@ -27,7 +27,7 @@
   },
   "notification": {
     "http": {
-      "url": "http://207.249.127.149:4000/notify"
+      "url": "https://driving-monitor-api.herokuapp.com/notify"
     },
     "attrs": [
       "id",

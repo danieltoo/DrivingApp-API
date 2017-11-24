@@ -1,6 +1,7 @@
 var deviceTokens = require('../../API/models/deviceNotification')
 
 module.exports = async function getDevicesTokens(devicesList) {
+	console.log("determinando tokens de devices")
 	var TokensList = []
 
 	await deviceTokens.find({}, async (err, deviceNot) => {
@@ -11,6 +12,6 @@ module.exports = async function getDevicesTokens(devicesList) {
 			})
 		})
 	})
-
+	console.log("determinando tokens de devices")
 	return TokensList
 }
