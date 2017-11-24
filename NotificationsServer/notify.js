@@ -14,6 +14,14 @@ module.exports = async function notify(req, res, next) {
 		socketio.sockets.emit('allalerts', alert) // Envía alerta a Driving Monitor Web APP
 		socketio.sockets.emit(campus.id, alert); //Envía la nueva alerta a los dispositivos con la app abierta y dentro del campus
 		let devicesList = await getDevicesOnCampus(campus.location) //Determinar lista de dispositivos en el campus
+		console.log("Guardando en mongo")
+		console.log(alert)
+		var new_alert = new Alert(alert);
+		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
+			if (err)
+				console.log(err) 
+		})
+		console.log("termino de guardar en mongo")
 		if (devicesList.length > 0 ) {
 			let tokensList = await getDevicesTokens(devicesList) //Determinar lista tokens de los dispositivos para enviar a Firebase
 			if ( tokensList.length > 0 ){
@@ -23,21 +31,14 @@ module.exports = async function notify(req, res, next) {
 				    body: alert.description
 				  }
 				};
-				await sendNotification(tokensList , notification) // Enviar la lista de tokens a firebase 
+				sendNotification(tokensList , notification) // Enviar la lista de tokens a firebase 
 			}else {
 				console.log("No se encontraron tokens :(")
 			}
 		}else {
 			console.log("No se encuentran dispositivos en el campus")
 		}
-		console.log("Guardando en mongo")
-		console.log(alert)
-		var new_alert = new Alert(alert);
-		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
-			if (err)
-				console.log(err) 
-		})
-		console.log("termino de guardar en mongo")
+
 	}else {
 		console.log("Se encuentra fuera del area")
 	}
