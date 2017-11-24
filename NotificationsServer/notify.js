@@ -30,11 +30,13 @@ module.exports = async function notify(req, res, next) {
 		}else {
 			console.log("No se encuentran dispositivos en el campus")
 		}
+		console.log("Guardando en mongo")
 		var new_alert = new Alert(alert);
 		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
 			if (err)
 				console.log(err) 
 		})
+		console.log("termino de guardar en mongo")
 	}else {
 		console.log("Se encuentra fuera del area")
 	}
