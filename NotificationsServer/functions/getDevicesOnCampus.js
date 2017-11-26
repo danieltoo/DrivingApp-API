@@ -9,9 +9,6 @@ module.exports = async function getDevicesOnCampus(location) {
 		let query = ngsi.createQuery({
 		  id: ".*",
 		  type: "Device",
-		  //georel : "coveredBy",
-		  //geometry:"polygon",
-		  //coords : location,
 		  options: "keyValues"
 		})
 
@@ -27,3 +24,7 @@ module.exports = async function getDevicesOnCampus(location) {
 	console.log("terminó de determinando devices campus")
 	return devicesList
 }
+
+//georel : "coveredBy",
+		  //geometry:"polygon",
+		  //coords : location,
