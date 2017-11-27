@@ -22,4 +22,5 @@ exports.alertsCampus = async function (req,res) {
 
 
 
+//sudo docker run -d --name orioncontextbroker --link mongodb:mongodb -p 1026:1026 fiware/orion -dbhost mongodb
 

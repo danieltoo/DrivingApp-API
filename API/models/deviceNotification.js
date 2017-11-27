@@ -12,6 +12,14 @@ var deviceNotificationSchema = new Schema({
         type: String,
         unique: true,
         required: true
+    },
+    dateCreated:{
+        type: Date,
+        default: Date.now
+    },
+    dateModified:{
+        type: Date,
+        default: Date.now
     }
 },
 {
