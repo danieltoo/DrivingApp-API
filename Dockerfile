@@ -14,7 +14,7 @@ COPY . /webservice
 RUN npm i
 
 # Expose the port the app runs in
-EXPOSE 4000
+EXPOSE 4000 
 
 # Serve the app
 CMD ["npm", "start"]

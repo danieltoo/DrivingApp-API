@@ -8,9 +8,8 @@ var sendNotification = require('./functions/sendNotification')
 module.exports = async function notify(req, res, next) {
 	let socketio = req.app.get('socketio');
 	let alert = req.body['data'][0]
-	//console.log(alert)
 	let campus = await determinateCampus(alert.location)//Detectar campus donde se genera la alerta
-	if (campus !== {}) {
+	if (campus !== undefined) {
 		socketio.sockets.emit('allalerts', alert) // Envía alerta a Driving Monitor Web APP
 		socketio.sockets.emit(campus.id, alert); //Envía la nueva alerta a los dispositivos con la app abierta y dentro del campus
 		let devicesList = await getDevicesOnCampus(campus.location) //Determinar lista de dispositivos en el campus
@@ -30,7 +29,7 @@ module.exports = async function notify(req, res, next) {
 				    title: alert.category,
 				    body: alert.description
 				  }
-				};
+				}
 				await sendNotification(tokensList , notification) // Enviar la lista de tokens a firebase 
 			}else {
 				console.log("No se encontraron tokens :(")

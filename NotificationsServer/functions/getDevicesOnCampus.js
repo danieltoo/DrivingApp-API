@@ -3,7 +3,7 @@ var cb = require('ocb-sender')
 var ngsi = require('ngsi-parser')
 
 module.exports = async function getDevicesOnCampus(location) {
-	console.log("determinando devices en el campus")
+	console.log("devices en el campus")
 	let devicesList = []
 	if (location !== undefined){
 		let query = ngsi.createQuery({
@@ -14,14 +14,14 @@ module.exports = async function getDevicesOnCampus(location) {
 
 		await cb.getWithQuery(query)
 		.then(async (result) => {
-			console.log(result)
+			
 		    await result.map((device) =>{ 
+		    	console.log(device.id)
 		    	devicesList.push(device.id)
 		    })
 		})
 		.catch((err) => console.log(err))
 	}
-	console.log("terminó de determinando devices campus")
 	return devicesList
 }
 

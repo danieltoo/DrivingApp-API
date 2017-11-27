@@ -68,7 +68,7 @@ app.use(function(req, res) {
 });
 
 /* Configuracion del puerto*/
-const port = process.env.PORT || '5000';// used to create, sign, and verify tokens
+const port = process.env.PORT || '4000';// used to create, sign, and verify tokens
 app.set('port', port);
 /* Creacíon del servidor http */
 var server = http.createServer(app);
