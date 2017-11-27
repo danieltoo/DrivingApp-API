@@ -22,6 +22,7 @@
   var devicesCampusService = require('../services/devicesCampusService');
   var devicesZoneService = require('../services/devicesZoneService');
   var queryService = require('../services/queryService');
+  var pointCampusService = require('../services/pointCampusService');
 
   // Test route to make sure everything is working (accessed at GET http://localhost:4000/api)
   app.route('/')
@@ -71,11 +72,6 @@
     .put(companyController.update_company)
     .delete(companyController.delete_company);
   
-  /*app.route('/context/campus/coords/:campusQuery')
-    .get(url+'/entities', function(req,res){
-      req.p
-    })*/
-
   //USER CONTEXT ROUTES
   app.route('/userContext')
     .get(userContextController.list_all_usersContext)
@@ -187,5 +183,9 @@
   //Query Device owner in Area
   app.route('/query')
     .post(queryService.queryInArea);
+
+  //POINT CAMPUS ROUTES
+  app.route('/pointCampus')
+    .post(pointCampusService.pointCampus);
 
   module.exports = app;
