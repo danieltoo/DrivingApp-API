@@ -18,14 +18,6 @@ module.exports = async function notify(req, res, next) {
 				console.log(err) 
 		})
 		let devicesList = await getDevicesOnCampus(campus.location) //Determinar lista de dispositivos en el campus
-		console.log("Guardando con mongo")
-		console.log(alert)
-		var new_alert = new Alert(alert);
-		new_alert.save(function (err, alert) { //Almacena alerta en la base de datos
-			if (err)
-				console.log(err) 
-		})
-		console.log("termino de guardar en mongo")
 		if (devicesList.length > 0 ) {
 			let tokensList = await getDevicesTokens(devicesList) //Determinar lista tokens de los dispositivos para enviar a Firebase
 			if ( tokensList.length > 0 ){
