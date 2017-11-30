@@ -4,13 +4,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var BuildingSchema = new Schema({
-    /*idBuilding:{
-        type: String,
-        unique: true,
-        required: true
-    },*/
+    id:{
+        type: String
+    },
     type:{
         type: String,
+        required: true,
         default: "Building"
     },
     refZone:{
@@ -36,12 +35,9 @@ var BuildingSchema = new Schema({
         default: Date.now
     },
     status:{
-        type: [{
-          type: String,
-          enum: ['active', 'inactive']
-        }],
-        default: ['active']
-    },
+        type: Boolean,
+        default: true
+    }   
 },
 {
   collection: 'BuildingModel'

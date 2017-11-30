@@ -3,10 +3,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var CompanySchema = new Schema({
-  idCompany:{
+  id:{
     type: String,
-    //unique: true,
+    unique: true,
     required: true
+  },
+  type:{
+    type: String,
+    required:true,
+    default: "Company"
   },
   name:{
     type: String,
@@ -22,11 +27,8 @@ var CompanySchema = new Schema({
     default: Date.now
   },
   status:{
-    type: [{
-      type: String,
-      enum: ['active', 'inactive']
-    }],
-    default: ['active']
+    type: Boolean,
+    default: true
   },
 },
 {

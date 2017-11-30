@@ -3,10 +3,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var AdminSchema = new Schema({
-    idAdministrator:{
+    id:{
         type: String,
         unique: true,
         required: true
+    },
+    type:{
+        type: String,
+        required: true,
+        default: "Administrator"
     },
     refCompany:{
         type: String,
@@ -39,11 +44,8 @@ var AdminSchema = new Schema({
         default: Date.now
     },
     status:{
-        type: [{
-          type: String,
-          enum: ['active', 'inactive']
-        }],
-        default: ['active']
+        type: Boolean,
+        default: true
     }
 },
 {

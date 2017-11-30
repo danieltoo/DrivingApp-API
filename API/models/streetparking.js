@@ -4,13 +4,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var StreetParkingSchema = new Schema({
-    /*idStreetParking:{
-        type: String,
-        unique: true,
-        required: true
-    },*/
+    id:{
+        type: String
+    },
     type:{
         type: String,
+        required:true,
         default: "StreetParking"
     },
     refZone:{
@@ -53,11 +52,8 @@ var StreetParkingSchema = new Schema({
         default: Date.now
     },
     status:{
-        type: [{
-          type: String,
-          enum: ['active', 'inactive']
-        }],
-        default: ['active']
+        type: Boolean,
+        default: true
     },
 },
 {

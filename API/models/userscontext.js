@@ -5,37 +5,39 @@ var Schema = mongoose.Schema;
 
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var UsersContextSchema = new Schema({
-  idUserContext:{
+  /*idUserContext:{
     type: String,
     required: true,
     unique: true
+  },*/
+  type:{
+    type: String,
+    required: true,
+    default: "UsersContext"
   },
   refUser:{
     type: String,
-    required: true
+    //required: true
   },
   refCampus:{
     type: String,
-    required: true
+    //required: true
   },
   refZone:{
     type: String,
-    required: true
+    //required: true
   },
   refDevice:{
     type: String,
-    required: true
+    //required: true
   },
   refVehicle:{
     type: String,
-    required: true
+    //required: true
   },
   isActive:{
-    type: [{
-        type: String,
-        enum: ['online', 'offline']
-    }],
-    default: ['online']
+    type: Boolean,
+    default: true
   },
   dateTimeContext:{
     type: Date,
@@ -44,8 +46,7 @@ var UsersContextSchema = new Schema({
   location:{
     type: [Schema.Types.Mixed],
     required: true,
-    unique: true
-  },
+  }
 },
 {
   collection: 'UsersContextModel'

@@ -4,10 +4,15 @@ var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var SecurityGuardSchema = new Schema({
-  idUser:{
+  id:{
     type: String,
     required: true,
     unique: true
+  },
+  type:{
+    type: String,
+    required: true,
+    default: "SecurityGuard"
   },
   refCompany:{
     type: String,
@@ -64,15 +69,8 @@ var SecurityGuardSchema = new Schema({
     default: Date.now
   },
   status:{
-    type: [{
-        type: String,
-        enum: ['active', 'inactive']
-    }],
-    default: ['active']
-  },
-  role:{
-    type: String,
-    default: 'security_guard'
+    type: Boolean,
+    default: true
   }
 },
 {

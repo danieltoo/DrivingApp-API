@@ -10,6 +10,7 @@ var ZoneSchema = new Schema({
     },*/
     type:{
         type: String,
+        required:true,
         default: "Zone"
     },
     refCampus:{
@@ -35,12 +36,9 @@ var ZoneSchema = new Schema({
         default: Date.now
     },
     status:{
-        type: [{
-          type: String,
-          enum: ['active', 'inactive']
-        }],
-        default: ['active']
-    },
+        type: Boolean,
+        default: true
+    }
 },
 {
   collection: 'ZoneModel'

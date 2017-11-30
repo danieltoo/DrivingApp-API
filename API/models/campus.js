@@ -10,9 +10,9 @@ var CampusSchema = new Schema({
     }*/
     type:{
         type: String,
+        required:true,
         default: "Campus"
     },
-    //refCompany
     refOwner:{
         type: String,
         //required: true
@@ -49,12 +49,9 @@ var CampusSchema = new Schema({
         default: Date.now
     },
     status:{
-        type: [{
-          type: String,
-          enum: ['active', 'inactive']
-        }],
-        default: ['active']
-    },
+        type: Boolean,
+        default: true
+    }
 },
 {
   collection: 'CampusModel'

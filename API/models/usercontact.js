@@ -5,11 +5,16 @@ var Schema = mongoose.Schema;
 
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var UserContactSchema = new Schema({
-  idContact:{
+  id:{
     type: String,
     required: true,
     unique: true
-  },  
+  },
+  type:{
+    type: String,
+    required: true,
+    default: "UserContact"
+  },
   refUser:{
     type: String,
     required: true

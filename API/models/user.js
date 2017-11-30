@@ -6,10 +6,15 @@ var Schema = mongoose.Schema;
 
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var UserSchema = new Schema({
-  idUser:{
+  id:{
     type: String,
     required: true,
     unique: true
+  },
+  type:{
+    type: String,
+    required: true,
+    default: "User"
   },
   refCompany:{
     type: String,
@@ -17,7 +22,6 @@ var UserSchema = new Schema({
   },
   phoneNumber:{
     type: [String]
-    //required: true
   },
   name:{
     type: String,
@@ -34,17 +38,12 @@ var UserSchema = new Schema({
   },
   userName:{
     type: String
-    //required: true,
-    //unique: true
   },
   aliasUser:{
     type: String,
-    //required: true,
-    //unique: true
   },
   password:{
     type: String,
-    //required: true
   },
   dateCreated:{
     type: Date,
@@ -54,29 +53,18 @@ var UserSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  //ID GENERADO
   refUserContact:{
     type: String,
-    //required: true
   },
   refDevices:{
     type: [String],
-    //required: true
   },
   refVehicles:{
     type: [String],
-    //required: true
   },
   status:{
-    type: [{
-        type: String,
-        enum: ['active', 'inactive']
-    }],
-    default: ['active']
-  },
-  role:{
-    type: String,
-    default: 'final_user'
+    type: Boolean,
+    default: true
   }
 },
 {
