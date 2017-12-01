@@ -40,7 +40,7 @@ exports.delete_building = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(building){
-      building.status = ['inactive'];
+      building.status = false;
       Building.update({'_id': req.params.buildingId}, building, function(err, building) {
         if (err)
           res.status(400).send(err);

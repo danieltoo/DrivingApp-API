@@ -48,7 +48,7 @@ exports.delete_zone = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(zone){
-      zone.status = ['inactive'];
+      zone.status = false;
       Zone.update({'_id': req.params.zoneId}, zone, function(err, zone) {
         if (err)
           res.status(400).send(err);

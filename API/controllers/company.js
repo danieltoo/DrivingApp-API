@@ -40,7 +40,7 @@ exports.delete_company = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(company){
-      company.status = ['inactive'];
+      company.status = false;
       Company.update({'id': req.params.companyId}, company, function(err, company) {
         if (err)
           res.status(400).send(err);

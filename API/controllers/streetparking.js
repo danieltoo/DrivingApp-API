@@ -40,7 +40,7 @@ exports.delete_streetparking = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(streetparking){
-      streetparking.status = ['inactive'];
+      streetparking.status = false;
       StreetParking.update({'_id': req.params.streetparkingId }, streetparking, function(err, streetparking) {
         if (err)
           res.status(400).send(err);

@@ -40,8 +40,8 @@ exports.delete_admin = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(user){
-      admin.status = ['inactive'];
-      Admin.update({'idAdministrator': req.params.adminId}, admin, function(err, admin) {
+      admin.status = false;
+      Admin.update({'id': req.params.adminId}, admin, function(err, admin) {
         if (err)
           res.status(400).send(err);
         console.log("El administrador ha pasado a estado inactivo");

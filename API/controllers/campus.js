@@ -39,7 +39,7 @@ exports.delete_campus = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(campus){
-      campus.status = ['inactive'];
+      campus.status = false;
       Campus.update({'_id': req.params.campusId}, campus, function(err, campus) {
         if (err)
           res.status(400).send(err);

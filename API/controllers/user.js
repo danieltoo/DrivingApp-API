@@ -40,7 +40,7 @@ exports.delete_user = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(user){
-      user.status = ['inactive'];
+      user.status = false;
       User.update({'id': req.params.userId}, user, function(err, user) {
         if (err)
           res.status(400).send(err);

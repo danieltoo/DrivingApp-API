@@ -40,7 +40,7 @@ exports.delete_sg = function(req, res, next) {
     if(err)
       res.status(400).send(err);
     else if(sg){
-      sg.status = ['inactive'];
+      sg.status = false;
       SecurityGuard.update({'id': req.params.sgId}, sg, function(err, sg) {
         if (err)
           res.status(400).send(err);
