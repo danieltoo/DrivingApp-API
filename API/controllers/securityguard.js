@@ -20,7 +20,7 @@ exports.create_sg = function(req, res, next) {
 };
 
 exports.read_sg = function(req, res, next) {
-  SecurityGuard.findOne({ 'idUser': req.params.sgId }, function(err, sg) {
+  SecurityGuard.findOne({ 'id': req.params.sgId }, function(err, sg) {
     if (err)
       res.status(400).send(err);
     res.json(sg);
@@ -28,7 +28,7 @@ exports.read_sg = function(req, res, next) {
 };
 
 exports.update_sg = function(req, res, next) {
-  SecurityGuard.findOneAndUpdate({ 'idUser': req.params.sgId}, req.body, {new: true}, function(err, sg) {
+  SecurityGuard.findOneAndUpdate({ 'id': req.params.sgId}, req.body, {new: true}, function(err, sg) {
     if (err)
       res.status(400).send(err);
     res.json(sg);
@@ -36,12 +36,12 @@ exports.update_sg = function(req, res, next) {
 };
 
 exports.delete_sg = function(req, res, next) {
-  SecurityGuard.findOne({'idUser': req.params.sgId}, function(err, sg) {
+  SecurityGuard.findOne({'id': req.params.sgId}, function(err, sg) {
     if(err)
       res.status(400).send(err);
     else if(sg){
       sg.status = ['inactive'];
-      SecurityGuard.update({'idUser': req.params.sgId}, sg, function(err, sg) {
+      SecurityGuard.update({'id': req.params.sgId}, sg, function(err, sg) {
         if (err)
           res.status(400).send(err);
         console.log("El guardia de seguridad ha pasado a estado inactivo");

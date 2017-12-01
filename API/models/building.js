@@ -4,9 +4,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var BuildingSchema = new Schema({
-    id:{
-        type: String
-    },
     type:{
         type: String,
         required: true,

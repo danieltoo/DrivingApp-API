@@ -9,7 +9,7 @@ User.findOne({ 'email': req.body.email }, function(err, user) {
   	}else {
   		if(user !== null){
   	  		if (req.body.password === user.password )
-  	  			res.status(200).json({token : "Mi token", idUser:user.idUser})
+  	  			res.status(200).json({token : "Mi token", id:user.id})
   	  		else
   	  			res.status(404).send("The password you've entered is incorrect")
   	  	}else 

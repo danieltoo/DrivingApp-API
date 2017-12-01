@@ -20,7 +20,7 @@ exports.create_userContext = function(req, res, next) {
 };
 
 exports.read_userContext = function(req, res, next) {
-  UsersContext.findOne({ 'idUserContext': req.params.userContextId }, function(err, userContext) {
+  UsersContext.findOne({ 'id': req.params.userContextId }, function(err, userContext) {
     if (err)
       res.status(400).send(err);
     res.json(userContext);
@@ -28,7 +28,7 @@ exports.read_userContext = function(req, res, next) {
 };
 
 exports.update_userContext = function(req, res, next) {
-  UsersContext.findOneAndUpdate({ 'idUserContext': req.params.userContextId}, req.body, {new: true}, function(err, userContext) {
+  UsersContext.findOneAndUpdate({ 'id': req.params.userContextId}, req.body, {new: true}, function(err, userContext) {
     if (err)
       res.status(400).send(err);
     res.json(userContext);

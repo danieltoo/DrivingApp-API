@@ -20,7 +20,7 @@ exports.create_admin = function(req, res, next) {
 };
 
 exports.read_admin = function(req, res, next) {
-  Admin.findOne({ 'idAdministrator': req.params.adminId }, function(err, admin) {
+  Admin.findOne({ 'id': req.params.adminId }, function(err, admin) {
     if (err)
       res.status(400).send(err);
     res.json(admin);
@@ -28,7 +28,7 @@ exports.read_admin = function(req, res, next) {
 };
 
 exports.update_admin = function(req, res, next) {
-  Admin.findOneAndUpdate({ 'idAdministrator': req.params.adminId}, req.body, {new: true}, function(err, admin) {
+  Admin.findOneAndUpdate({ 'id': req.params.adminId}, req.body, {new: true}, function(err, admin) {
     if (err)
       res.status(400).send(err);
     res.json(admin);
@@ -36,7 +36,7 @@ exports.update_admin = function(req, res, next) {
 };
 
 exports.delete_admin = function(req, res, next) {
-  Admin.findOne({'idAdministrator': req.params.adminId}, function(err, admin) {
+  Admin.findOne({'id': req.params.adminId}, function(err, admin) {
     if(err)
       res.status(400).send(err);
     else if(user){

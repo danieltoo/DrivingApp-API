@@ -3,11 +3,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // Configurar un nuevo modelo moongoose and pass it using module.exports
 var CampusSchema = new Schema({
-    /*idCampus:{
-        type: String
-        //unique: true,
-        //required: true
-    }*/
     type:{
         type: String,
         required:true,

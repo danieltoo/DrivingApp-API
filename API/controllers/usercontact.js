@@ -20,7 +20,7 @@ exports.create_userContact = function(req, res, next) {
 };
 
 exports.read_userContact = function(req, res, next) {
-  UserContact.findOne({ 'idContact': req.params.userContactId }, function(err, userContact) {
+  UserContact.findOne({ 'id': req.params.userContactId }, function(err, userContact) {
     if (err)
       res.status(400).send(err);
     res.json(userContact);
@@ -28,7 +28,7 @@ exports.read_userContact = function(req, res, next) {
 };
 
 exports.update_userContact = function(req, res, next) {
-  UserContact.findOneAndUpdate({ 'idContact': req.params.userContactId}, req.body, {new: true}, function(err, userContact) {
+  UserContact.findOneAndUpdate({ 'id': req.params.userContactId}, req.body, {new: true}, function(err, userContact) {
     if (err)
       res.status(400).send(err);
     res.json(userContact);

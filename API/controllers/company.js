@@ -20,7 +20,7 @@ exports.create_company = function(req, res, next) {
 };
 
 exports.read_company = function(req, res, next) {
-  Company.findOne({ 'idCompany': req.params.companyId }, function(err, company) {
+  Company.findOne({ 'id': req.params.companyId }, function(err, company) {
     if (err)
       res.status(400).send(err);
     res.json(company);
@@ -28,7 +28,7 @@ exports.read_company = function(req, res, next) {
 };
 
 exports.update_company = function(req, res, next) {
-  Company.findOneAndUpdate({ 'idCompany': req.params.companyId}, req.body, {new: true}, function(err, company) {
+  Company.findOneAndUpdate({ 'id': req.params.companyId}, req.body, {new: true}, function(err, company) {
     if (err)
       res.status(400).send(err);;
     res.json(company);
@@ -36,12 +36,12 @@ exports.update_company = function(req, res, next) {
 };
 
 exports.delete_company = function(req, res, next) {
-  Company.findOne({'idCompany': req.params.companyId}, function(err, company) {
+  Company.findOne({'id': req.params.companyId}, function(err, company) {
     if(err)
       res.status(400).send(err);
     else if(company){
       company.status = ['inactive'];
-      Company.update({'idCompany': req.params.companyId}, company, function(err, company) {
+      Company.update({'id': req.params.companyId}, company, function(err, company) {
         if (err)
           res.status(400).send(err);
         console.log("La compañia ha pasado a estado inactivo");

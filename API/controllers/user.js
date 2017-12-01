@@ -20,7 +20,7 @@ exports.create_user = function(req, res, next) {
 };
 
 exports.read_user = function(req, res, next) {
-  User.findOne({ 'idUser': req.params.userId }, function(err, user) {
+  User.findOne({ 'id': req.params.userId }, function(err, user) {
     if (err)
       res.status(400).send(err);
     res.json(user);
@@ -28,7 +28,7 @@ exports.read_user = function(req, res, next) {
 };
 
 exports.update_user = function(req, res, next) {
-  User.findOneAndUpdate({ 'idUser': req.params.userId}, req.body, {new: true}, function(err, user) {
+  User.findOneAndUpdate({ 'id': req.params.userId}, req.body, {new: true}, function(err, user) {
     if (err)
       res.status(400).send(err);
     res.json(user);
@@ -36,12 +36,12 @@ exports.update_user = function(req, res, next) {
 };
 
 exports.delete_user = function(req, res, next) {
-  User.findOne({'idUser': req.params.userId}, function(err, user) {
+  User.findOne({'id': req.params.userId}, function(err, user) {
     if(err)
       res.status(400).send(err);
     else if(user){
       user.status = ['inactive'];
-      User.update({'idUser': req.params.userId}, user, function(err, user) {
+      User.update({'id': req.params.userId}, user, function(err, user) {
         if (err)
           res.status(400).send(err);
         console.log("El usuario ha pasado a estado inactivo");
